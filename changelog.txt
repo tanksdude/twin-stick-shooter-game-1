@@ -1,0 +1,15 @@
+0.1.1 (obviously not here)
+* ini file
+* proper powerup system
+* GPU rendering?
+
+0.1.0
+* initial stuff
+    * basic movement/controls, basic enemies, basic score and upgrades, basic background
+
+future notes:
+* menu
+* more enemies
+* long-term hope: implement the laser (the one from Super Stardust)
+
+GitHub: https://github.com/tanksdude/twin-stick-shooter-game-1
