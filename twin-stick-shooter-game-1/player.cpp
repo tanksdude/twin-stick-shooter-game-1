@@ -4,7 +4,8 @@
 #include "texture-manager.h"
 #include <iostream>
 
-#include <freeglut.h>
+#include <GL/glew.h>
+#include <GL/freeglut.h>
 
 template <typename T>
 T Player::PlayerUpgradable<T>::getValue() const {

@@ -1,57 +1,60 @@
-//TODO: #includes
+#include <string>
+
+#include "game-scene-manager.h"
+#include "game-main-loop.h"
+#include "rng.h"
+
+//#include <GL/glew.h>
+//#include <GL/freeglut.h>
 
 int main(int argc, char** argv) {
+	RNG::Initialize();
 	//TODO: very obviously not done
-	std::string name = "Twin-Stick Shooter Test Game v0.0.9"; //v0.1.0 once everything compiles
-	Renderer::PreInitialize(&argc, argv, name, 60, 60, 600, 600);
+	std::string name = "Twin-Stick Shooter Test Game v0.9"; //v1.0 once everything compiles
+	//TODO?
+	GameSceneManager::PreInitialize(&argc, argv, name, 60, 60, 600, 600);
 
 	// Set callback for drawing the scene
 	glutDisplayFunc(GameSceneManager::DrawScenes);
 
 	// Set callback for resizing the window
-	glutReshapeFunc(Renderer::windowResizeFunc);
+	glutReshapeFunc(GameSceneManager::resizeWindow);
 
 	//mouse clicking
-	glutMouseFunc(DeveloperManager::mouseClickFunc);
+	glutMouseFunc(GameSceneManager::mouseClickHandle);
 
 	// Set callback to handle mouse dragging
-	glutMotionFunc(DeveloperManager::mouseDragFunc);
+	glutMotionFunc(GameSceneManager::dragHandle);
 
 	//passive mouse dragging
-	//TODO
+	glutPassiveMotionFunc(GameSceneManager::passiveDragHandle);
 
 	// Set callback to handle keyboard events
-	glutKeyboardFunc(KeypressManager::setNormalKey);
+	glutKeyboardFunc(GameSceneManager::keyDown);
 
 	//callback for keyboard up events
-	glutKeyboardUpFunc(KeypressManager::unsetNormalKey);
+	glutKeyboardUpFunc(GameSceneManager::keyUp);
 
 	//special keyboard down
-	glutSpecialFunc(KeypressManager::setSpecialKey);
+	glutSpecialFunc(GameSceneManager::specialKeyDown);
 
 	//special keyboard up
-	glutSpecialUpFunc(KeypressManager::unsetSpecialKey);
+	glutSpecialUpFunc(GameSceneManager::specialKeyUp);
 
 	//mousewheel
-	glutMouseWheelFunc(DeveloperManager::mouseWheelFunc);
+	//TODO
 
 	// Set callback for the idle function
 	//glutIdleFunc(draw);
 
 	//initialize managers and stuff:
-	GameManager::Initialize();
-	KeypressManager::Initialize();
-	BackgroundRect::initializeGPU()
+	//TODO
 
 	//game mode:
 	GameSceneManager::pushScene(new GameMainLoop());
 
 	//main game code initialization stuff:
 	//TODO
-
-	//std::cout << "OpenGL renderer: " << glGetString(GL_RENDERER) << std::endl;
-	//std::cout << "OpenGL vendor: " << glGetString(GL_VENDOR) << std::endl;
-	//std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl << std::endl;
 
 	//framelimiter
 	GameSceneManager::TickScenes(100);

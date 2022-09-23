@@ -21,10 +21,10 @@
     <ClCompile Include="enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="image_DXT.cpp">
+    <ClCompile Include="image_DXT.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="image_helper.cpp">
+    <ClCompile Include="image_helper.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="player.cpp">
@@ -36,13 +36,13 @@
     <ClCompile Include="projectile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SOIL.cpp">
+    <ClCompile Include="SOIL.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stb_image_aug.cpp">
+    <ClCompile Include="stb_image_aug.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="texture-manager.cpp">
@@ -55,6 +55,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="collision-handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="circle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rng.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game-scene-manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game-scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -105,6 +120,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="collision-handler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="circle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rng.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game-scene-manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game-scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

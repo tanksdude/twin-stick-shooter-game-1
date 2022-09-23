@@ -1,6 +1,6 @@
 #include "simple-vector-2d.h"
-#include <math.h>
 #include "constants.h"
+#include <math.h>
 
 //code from my game PowerTanks Battle
 

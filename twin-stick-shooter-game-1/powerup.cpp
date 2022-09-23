@@ -5,7 +5,8 @@
 #include "texture-manager.h"
 #include <iostream>
 
-#include <freeglut.h>
+#include <GL/glew.h>
+#include <GL/freeglut.h>
 
 float Powerup::size = 5;
 

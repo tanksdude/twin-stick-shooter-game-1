@@ -4,7 +4,8 @@
 #include <stdexcept>
 #include "texture-manager.h"
 
-#include <freeglut.h>
+#include <GL/glew.h>
+#include <GL/freeglut.h>
 
 Enemy* Enemy::MakeEnemy(float x, float y, EnemyTypes type, char teamID) {
 	switch(type) {

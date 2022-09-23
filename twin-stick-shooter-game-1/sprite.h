@@ -2,8 +2,9 @@
 #include "rect.h"
 #include <string>
 
-#include <freeglut.h>
-#include "../windows/SOIL.h"
+#include <GL/glew.h>
+#include <GL/freeglut.h>
+#include "SOIL.h"
 
 //for SpriteHolder; don't use for regular sprite usage
 class Sprite : public Rect {

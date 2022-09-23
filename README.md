@@ -4,6 +4,8 @@ A game heavily inspired by [Super Stardust](https://en.wikipedia.org/wiki/Super_
 
 (This game uses keyboard and mouse so "twin-stick" is only to describe the genre.)
 
+Code is pretty hacky, but at least the game is playable!
+
 # IMPORTANT NOTE
 
 Currently doesn't compile. I'm moving a bunch of code over, so you'll have to wait.
@@ -13,15 +15,13 @@ Currently doesn't compile. I'm moving a bunch of code over, so you'll have to wa
 ### Prerequisites (TODO)
 
 * If compiling from source, you'll want Visual Studio
-* OpenGL 3.3 or later
+* ?GHz+ CPU recommended
     * TODO
-    * Earlier versions probably work if you update the shaders
-* 3GHz+ CPU recommended (2GHz is probably fine)
-    * TODO
-* RAM requirements unknown, but 100MB is good
+* ?MB RAM
     * TODO
 * No audio requirements
 * **Windows-only** (but the source code is right here so try some stuff if you want to)
+    * 32-bit only because Windows sucks
 
 ## License
 

@@ -5,7 +5,8 @@
 #include "texture-manager.h"
 #include <iostream>
 
-#include <freeglut.h>
+#include <GL/glew.h>
+#include <GL/freeglut.h>
 
 Projectile::Projectile() : Projectile(0,0,0,{0,0},0,-1) {}
 
@@ -51,7 +52,7 @@ float DeathBullet::MAX_DAMAGE = std::numeric_limits<float>::infinity(); //cuz wh
 DeathBullet::DeathBullet() : Projectile() {}
 
 DeathBullet::DeathBullet(float x, float y, float r, SimpleVector2D velocity, char teamID) : Projectile(x,y,r,velocity,MAX_DAMAGE,teamID) {
-	bodyTexture = TextureManager::getSprite("strange_shield.png");
+	bodyTexture = TextureManager::getSprite("TODO");
 }
 
 DeathBullet::DeathBullet(const DeathBullet& other) : Projectile(other) {

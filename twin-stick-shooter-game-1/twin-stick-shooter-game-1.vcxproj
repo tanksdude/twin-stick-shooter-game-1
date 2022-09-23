@@ -86,12 +86,15 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\freeglut\include;$(SolutionDir)Dependencies\glew\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\freeglut\lib;$(SolutionDir)Dependencies\glew\lib;%(AdditionalDependencies)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -100,14 +103,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\freeglut\include;$(SolutionDir)Dependencies\glew\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\freeglut\lib;$(SolutionDir)Dependencies\glew\lib;%(AdditionalDependencies)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -116,10 +122,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\freeglut\include;$(SolutionDir)Dependencies\glew\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\freeglut\lib;$(SolutionDir)Dependencies\glew\lib;%(AdditionalDependencies)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -130,40 +139,53 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\freeglut\include;$(SolutionDir)Dependencies\glew\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\freeglut\lib;$(SolutionDir)Dependencies\glew\lib;%(AdditionalDependencies)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="circle.cpp" />
     <ClCompile Include="collision-handler.cpp" />
     <ClCompile Include="game-main-loop.cpp" />
+    <ClCompile Include="game-scene-manager.cpp" />
+    <ClCompile Include="game-scene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="enemy.cpp" />
-    <ClCompile Include="image_DXT.cpp" />
-    <ClCompile Include="image_helper.cpp" />
+    <ClCompile Include="image_DXT.c" />
+    <ClCompile Include="image_helper.c" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="powerup.cpp" />
     <ClCompile Include="projectile.cpp" />
+    <ClCompile Include="rect.cpp" />
+    <ClCompile Include="rng.cpp" />
     <ClCompile Include="simple-vector-2d.cpp" />
-    <ClCompile Include="SOIL.cpp" />
+    <ClCompile Include="SOIL.c" />
     <ClCompile Include="sprite.cpp" />
-    <ClCompile Include="stb_image_aug.cpp" />
+    <ClCompile Include="stb_image_aug.c" />
     <ClCompile Include="texture-manager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="circle.h" />
     <ClInclude Include="collision-handler.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="game-main-loop.h" />
+    <ClInclude Include="game-scene-manager.h" />
+    <ClInclude Include="game-scene.h" />
     <ClInclude Include="image_DXT.h" />
     <ClInclude Include="image_helper.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="powerup.h" />
     <ClInclude Include="projectile.h" />
+    <ClInclude Include="rect.h" />
+    <ClInclude Include="rng.h" />
     <ClInclude Include="simple-vector-2d.h" />
     <ClInclude Include="SOIL.h" />
     <ClInclude Include="sprite.h" />
