@@ -41,7 +41,7 @@ Powerup* Powerup::MakePowerup(float x, float y, float r, PowerupTypes type) {
 }
 
 Powerup::Powerup(float x, float y, float r) : Circle(x, y, r) {
-	bodyTexture = TextureManager::getSprite("TODO", 10);
+	bodyTexture = TextureManager::getSprite("coin_sprite.png", 10);
 }
 
 Powerup::~Powerup() {

@@ -14,7 +14,7 @@ Projectile::Projectile(float x, float y, float r, SimpleVector2D velocity, float
 	this->velocity = velocity;
 	this->teamID = teamID;
 	this->damage = damage;
-	bodyTexture = TextureManager::getSprite("TODO", 4);
+	bodyTexture = TextureManager::getSprite("lasers.png", 4);
 }
 
 Projectile::Projectile(const Projectile& other) : Circle(other) {
@@ -52,7 +52,7 @@ float DeathBullet::MAX_DAMAGE = std::numeric_limits<float>::infinity(); //cuz wh
 DeathBullet::DeathBullet() : Projectile() {}
 
 DeathBullet::DeathBullet(float x, float y, float r, SimpleVector2D velocity, char teamID) : Projectile(x,y,r,velocity,MAX_DAMAGE,teamID) {
-	bodyTexture = TextureManager::getSprite("TODO");
+	bodyTexture = TextureManager::getSprite("strange_shield.png");
 }
 
 DeathBullet::DeathBullet(const DeathBullet& other) : Projectile(other) {

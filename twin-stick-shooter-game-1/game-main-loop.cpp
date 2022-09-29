@@ -42,7 +42,7 @@ GameMainLoop::GameMainLoop(int startingLives) {
 	pushWaveEnemies(waveNumber);
 	pushWavePowerups(waveNumber);
 	alertMessage = "";
-	backgroundImage = TextureManager::getSprite("TODO");
+	backgroundImage = TextureManager::getSprite("space_with_stars.jpg");
 }
 
 GameMainLoop::~GameMainLoop() {
@@ -521,7 +521,7 @@ void GameMainLoop::drawMain() const {
 	GameSceneManager::setCenterDist(player->getZoomDist());
 	GameSceneManager::resizeWindow(); //TODO: necessary?
 
-	drawBackground();
+	//drawBackground();
 
 	for (int i = 0; i < enemies.size(); i++) {
 		enemies[i]->draw();

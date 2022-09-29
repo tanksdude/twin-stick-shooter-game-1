@@ -55,10 +55,10 @@ Player::Player(float x, float y, float r, char teamID) : Circle(x,y,r) {
 	shielded = false;
 	shieldCooldown = 0;
 	maxShieldCooldown = 200;
-	bodyTexture = TextureManager::getSprite("TODO");
-	reticuleTexture = TextureManager::getSprite("TODO");
-	shieldTexture = TextureManager::getSprite("TODO");
-	thrusterSprite = TextureManager::getSprite("TODO", 2);
+	bodyTexture = TextureManager::getSprite("destroyer.png");
+	reticuleTexture = TextureManager::getSprite("reticle.png"); //known flaw: is practically unnoticeable
+	shieldTexture = TextureManager::getSprite("shield.png");
+	thrusterSprite = TextureManager::getSprite("thruster_spritesheet.png", 2);
 }
 
 Player::Player(const Player& other) : Circle(other) {

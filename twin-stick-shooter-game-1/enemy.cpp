@@ -79,7 +79,7 @@ FodderEnemy::FodderEnemy(float x, float y, char teamID) : FodderEnemy(x,y,Fodder
 FodderEnemy::FodderEnemy(float x, float y, float r, char teamID) : Enemy(x,y,r,teamID) {
 	initial_health = health = 1;
 	defense = 0;
-	bodyTexture = TextureManager::getSprite("TODO");
+	bodyTexture = TextureManager::getSprite("shieldbubble.png");
 }
 
 FodderEnemy::~FodderEnemy() {
@@ -111,7 +111,7 @@ BasicEnemy::BasicEnemy(float x, float y, float r, char teamID) : Enemy(x,y,r,tea
 	initial_health = health = 5;
 	defense = 0;
 	maxAngleChange = 2*PI / 400;
-	bodyTexture = TextureManager::getSprite("TODO");
+	bodyTexture = TextureManager::getSprite("cpu_pins.jpg");
 }
 
 BasicEnemy::~BasicEnemy() {
@@ -160,7 +160,8 @@ MothershipEnemy::MothershipEnemy(float x, float y, float r, char teamID) : Enemy
 	defense = 1;
 	shootCooldown = 0;
 	maxShootCooldown = 100;
-	bodyTexture = TextureManager::getSprite("TODO");
+	//bodyTexture = TextureManager::getSprite("space_invader.png");
+	bodyTexture = TextureManager::getSprite("strange_shield.png");
 }
 
 MothershipEnemy::~MothershipEnemy() {

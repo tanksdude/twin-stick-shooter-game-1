@@ -1,4 +1,5 @@
 #include "game-scene-manager.h"
+#include "texture-manager.h"
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -25,7 +26,7 @@ void GameSceneManager::PreInitialize(int* argc, char** argv, std::string windowN
 	glutReshapeWindow(sizeX, sizeY);
 
 	// Setup some OpenGL options
-	//glEnable (GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_POINT_SMOOTH);
 	glEnable(GL_LINE_SMOOTH);
@@ -43,6 +44,20 @@ void GameSceneManager::PreInitialize(int* argc, char** argv, std::string windowN
 	}
 
 	//set the callbacks later right after this
+
+	//couldn't find a better place for this
+	TextureManager::addSprite("destroyer.png", new Sprite("images/destroyer.png"));
+	TextureManager::addSprite("reticle.png", new Sprite("images/reticle.png"));
+	TextureManager::addSprite("shield.png", new Sprite("images/shield.png"));
+	TextureManager::addSprite("shieldbubble.png", new Sprite("images/shieldbubble.png"));
+	TextureManager::addSprite("strange_shield.png", new Sprite("images/strange-shield-small.png"));
+	//TextureManager::addSprite("viking-shield.png", new Sprite("images/viking-shield-small.png"));
+	TextureManager::addSprite("cpu_pins.jpg", new Sprite("images/cpu_pins.jpg"));
+	TextureManager::addSprite("space_with_stars.jpg", new Sprite("images/space-with-stars-1.jpg"));
+	TextureManager::addSprite("lasers.png", new Sprite("images/laser_spritesheet.png", 1, 11));
+	TextureManager::addSprite("coin_sprite.png", new Sprite("images/coin_sprite.png", 6, 1));
+	TextureManager::addSprite("space_invader.png", new Sprite("images/space-invader.png", 6, 1));
+	TextureManager::addSprite("thruster_spritesheet.png", new Sprite("images/thruster-spritesheet.png", 4, 1));
 }
 
 void GameSceneManager::windowToSceneCoordinates(float& x, float& y) {
