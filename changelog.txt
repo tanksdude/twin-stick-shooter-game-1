@@ -1,11 +1,9 @@
 0.1.1 (obviously not here)
 * ini file
-* proper powerup system
-* GPU rendering?
+* proper powerup upgrading system
 
 0.1.0
-* initial stuff
-    * basic movement/controls, basic enemies, basic score and upgrades, basic background
+* initial stuff: basic movement/controls, basic enemies, basic score and upgrades, basic background
 
 future notes:
 * menu
