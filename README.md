@@ -14,6 +14,8 @@ I didn't find a solution, so you'll just have to deal with it. This means the ba
 
 But, the source code is here, so you can manually reverse the draw order if you want!... Though alpha still won't be interpreted correctly.
 
+The game also runs very slowly with ~1s of input delay, and I don't know what I'm doing wrong, because the same code has run just fine at other times. I'll blame Windows for being Windows.
+
 ## Getting Started
 
 ### Prerequisites
@@ -21,13 +23,14 @@ But, the source code is here, so you can manually reverse the draw order if you 
 * If compiling from source, you'll want Visual Studio
 * 2GHz+ CPU is probably enough
 * ~100MB RAM
-* No audio requirements
 * **Windows-only** (but the source code is right here so try some stuff if you want to)
     * 32-bit only because Windows sucks, but don't fret, since 64-bit Windows can run 32-bit programs just fine
 
 ## License
 
-This project is licensed under GNU General Public License v3.0
+GNU General Public License v3.0
+
+`SPDX-License-Identifier: GPL-3.0-only`
 
 ## Acknowledgments
 
@@ -48,9 +51,8 @@ There's a clear lack of twin-stick shooters in the world. Here are some good one
 ### Ones I haven't played but are considered good:
 
 * [Nuclear Throne](https://en.wikipedia.org/wiki/Nuclear_Throne): considered very, very good
-* [Ruiner](https://en.wikipedia.org/wiki/Ruiner_\(video_game\)): considered very good
+* [Ruiner](https://en.wikipedia.org/wiki/Ruiner_(video_game)): considered very good
 * [Neon Chrome](https://en.wikipedia.org/wiki/Neon_Chrome): considered good
-* [Chippy](https://store.steampowered.com/app/602700/Chippy/): considered good
 
 ## Special note: bad or meh twin-stick shooters
 
@@ -60,9 +62,11 @@ Some twin-stick shooters are just bad. It takes a lot of work to make a game, an
 * (Meh) [Assault Android Cactus](https://en.wikipedia.org/wiki/Assault_Android_Cactus): decent, but the variety comes from the different characters to play as, which isn't very fun, also somewhat repetitive
 * (Meh) [PixelJunk Shooter](https://en.wikipedia.org/wiki/PixelJunk_Shooter): it's not an action-focused twin-stick shooter, which is why it doesn't capture my attention; however, the main gimmick was the particle effects on the brand-new PS3, not the twin-stick shooting
 * (Bad) [Furious Angels](https://store.steampowered.com/app/551450/Furious_Angels/): cool concept, did not evolve beyond that; it's just shooting things until you die
-* (Meh/Bad) [THOTH](https://en.wikipedia.org/wiki/Thoth_\(video_game\)): kinda hard, not much going on; pretty sure I a least completed it but it wasn't fun
+* (Meh/Bad) [THOTH](https://en.wikipedia.org/wiki/Thoth_(video_game)): kinda hard, not much going on; pretty sure I a least completed it but it wasn't fun
 * (Bad) [Tormentor X Punisher](https://store.steampowered.com/app/500670/TormentorPunisher/): takes too long for things to get interesting, and the upgrades were kinda annoying; also the name having the U+274C character in its name is so annoying
+* (Bad) [Chippy](https://store.steampowered.com/app/602700/Chippy/): requires great precision to chip off parts of bosses, and the bosses are not fun when there's only one way to beat them, and a lot of bad design decisions along the way; however, other people say it's good, so make your decision
+* (Bad) [Devader](https://store.steampowered.com/app/706850/Devader/): sorry little indie dev, but it's not fun; it's not really an arcade game, since it has a campaign to go through, and you have limited upgrade choices, oh and you can't undo any choice, and you have limited lives (why)
 * (Meh) [Stardust Galaxy Warriors: Stellar Climax](https://en.wikipedia.org/wiki/Dreamloop_Games#Games): actually, it's a shoot 'em up, which definitely isn't twin-stick shooting... but nothing felt powerful, and everything felt too old-school; however, I'm including this because the customization options and accessibility options are great
-* (Bad) [Tokyo 42](https://en.wikipedia.org/wiki/Tokyo_42): focuses more on the adventuring than the twin-stick shooting, but the isometric view makes aiming hard and shooting annoying, the stealth system was overused, and 100%ing it will not be fun
+* (Bad) [Tokyo 42](https://en.wikipedia.org/wiki/Tokyo_42): focuses more on the adventuring than the twin-stick shooting, but the isometric view makes aiming hard and shooting annoying, the stealth system was overused, and 100%ing it is not fun
 * (Good) [REVOLVER360 RE:ACTOR](https://store.steampowered.com/app/313400/REVOLVER360_REACTOR/): again, it's a shoot 'em up, but it's so freakin' cool; kinda hard but it's so interesting
-* (Good) [Heat Signature](https://en.wikipedia.org/wiki/Heat_Signature_\(video_game\)): not really a twin-stick shooter but it's really good!
+* (Good) [Heat Signature](https://en.wikipedia.org/wiki/Heat_Signature_(video_game)): not really a twin-stick shooter but it's really good!

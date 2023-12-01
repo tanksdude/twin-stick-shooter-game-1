@@ -1,15 +1,17 @@
 #include "game-main-loop.h"
 
-#include <iostream>
-#include <vector>
-#include <time.h>
-#include <chrono>
-#include <unordered_map>
 #include <stdexcept>
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <chrono>
+#include <iostream>
+
 #include "constants.h"
-#include <math.h>
-#include "collision-handler.h"
+#include <cmath>
 #include "rng.h"
+
+#include "collision-handler.h"
 #include "texture-manager.h"
 #include "game-scene-manager.h"
 
@@ -339,9 +341,9 @@ void GameMainLoop::pushEnemy(EnemyTypes type) {
 	Enemy* e = nullptr;
 	do {
 		if (e != nullptr) { delete e; }
-		SimpleVector2D offset(2*PI * RNG::randFunc(), (GAME_WIDTH/4 - 100) * RNG::randFunc() + 100, true);
+		SimpleVector2D offset((2*PI) * RNG::randFunc(), RNG::randFloatInRange(100, GAME_WIDTH/4), true);
 		e = Enemy::MakeEnemy(player->getX() + offset.getXComp(), player->getY() + offset.getYComp(), type, 1);
-	} while(!validEnemyPosition(e));
+	} while (!validEnemyPosition(e));
 	enemies.push_back(e);
 }
 
@@ -353,21 +355,20 @@ bool GameMainLoop::validEnemyPosition(Enemy* e) {
 }
 
 void GameMainLoop::pushWavePowerups(int wave) {
+	const float d = Powerup::getSize();
 	if (wave == 1) {
-		float d = Powerup::getSize();
-		powerups.push_back(Powerup::MakePowerup((GAME_WIDTH - 2*d) * RNG::randFunc() + d, (GAME_HEIGHT - 2*d) * RNG::randFunc() + d, PowerupTypes::Speed));
-		powerups.push_back(Powerup::MakePowerup((GAME_WIDTH - 2*d) * RNG::randFunc() + d, (GAME_HEIGHT - 2*d) * RNG::randFunc() + d, PowerupTypes::FiringRate));
-		powerups.push_back(Powerup::MakePowerup((GAME_WIDTH - 2*d) * RNG::randFunc() + d, (GAME_HEIGHT - 2*d) * RNG::randFunc() + d, PowerupTypes::Damage));
-		powerups.push_back(Powerup::MakePowerup((GAME_WIDTH - 2*d) * RNG::randFunc() + d, (GAME_HEIGHT - 2*d) * RNG::randFunc() + d, PowerupTypes::Shield));
+		powerups.push_back(Powerup::MakePowerup(RNG::randFloatInRange(d, GAME_WIDTH - d), RNG::randFloatInRange(d, GAME_WIDTH - d), PowerupTypes::Speed));
+		powerups.push_back(Powerup::MakePowerup(RNG::randFloatInRange(d, GAME_WIDTH - d), RNG::randFloatInRange(d, GAME_WIDTH - d), PowerupTypes::FiringRate));
+		powerups.push_back(Powerup::MakePowerup(RNG::randFloatInRange(d, GAME_WIDTH - d), RNG::randFloatInRange(d, GAME_WIDTH - d), PowerupTypes::Damage));
+		powerups.push_back(Powerup::MakePowerup(RNG::randFloatInRange(d, GAME_WIDTH - d), RNG::randFloatInRange(d, GAME_WIDTH - d), PowerupTypes::Shield));
+		return;
 	}
 	if (wave % 10 == 0) {
-		float d = Powerup::getSize();
-		powerups.push_back(Powerup::MakePowerup((GAME_WIDTH - 2*d) * RNG::randFunc() + d, (GAME_HEIGHT - 2*d) * RNG::randFunc() + d, PowerupTypes::Shield));
+		powerups.push_back(Powerup::MakePowerup(RNG::randFloatInRange(d, GAME_WIDTH - d), RNG::randFloatInRange(d, GAME_WIDTH - d), PowerupTypes::Shield));
 	} else if (wave % 2 == 0) {
-		float d = Powerup::getSize();
-		int randPower = RNG::randFunc() * 3;
+		int randPower = static_cast<int>(RNG::randFunc() * 3);
 		PowerupTypes type;
-		switch(randPower) {
+		switch (randPower) {
 			//default:
 			case 0:
 				type = PowerupTypes::Speed;
@@ -379,13 +380,12 @@ void GameMainLoop::pushWavePowerups(int wave) {
 				type = PowerupTypes::Damage;
 				break;
 		}
-		powerups.push_back(Powerup::MakePowerup((GAME_WIDTH - 2*d) * RNG::randFunc() + d, (GAME_HEIGHT - 2*d) * RNG::randFunc() + d, type));
+		powerups.push_back(Powerup::MakePowerup(RNG::randFloatInRange(d, GAME_WIDTH - d), RNG::randFloatInRange(d, GAME_WIDTH - d), type));
 	}
 	if (wave % 5 == 0) {
-		float d = Powerup::getSize();
-		powerups.push_back(Powerup::MakePowerup((GAME_WIDTH - 2*d) * RNG::randFunc() + d, (GAME_HEIGHT - 2*d) * RNG::randFunc() + d, PowerupTypes::Speed));
-		powerups.push_back(Powerup::MakePowerup((GAME_WIDTH - 2*d) * RNG::randFunc() + d, (GAME_HEIGHT - 2*d) * RNG::randFunc() + d, PowerupTypes::FiringRate));
-		powerups.push_back(Powerup::MakePowerup((GAME_WIDTH - 2*d) * RNG::randFunc() + d, (GAME_HEIGHT - 2*d) * RNG::randFunc() + d, PowerupTypes::Damage));
+		powerups.push_back(Powerup::MakePowerup(RNG::randFloatInRange(d, GAME_WIDTH - d), RNG::randFloatInRange(d, GAME_WIDTH - d), PowerupTypes::Speed));
+		powerups.push_back(Powerup::MakePowerup(RNG::randFloatInRange(d, GAME_WIDTH - d), RNG::randFloatInRange(d, GAME_WIDTH - d), PowerupTypes::FiringRate));
+		powerups.push_back(Powerup::MakePowerup(RNG::randFloatInRange(d, GAME_WIDTH - d), RNG::randFloatInRange(d, GAME_WIDTH - d), PowerupTypes::Damage));
 	}
 }
 
@@ -399,7 +399,7 @@ void GameMainLoop::drawMessage(std::string message, float scaleFactor, float pos
 	totalWidth *= scaleFactor;
 
 	//I don't know why, but TEXT_HEIGHT*scaleFactor isn't the height of the text; must divide by 4
-	glTranslatef(posX - totalWidth/2, posY - glutStrokeHeight(GLUT_STROKE_ROMAN)*scaleFactor/4, 0);
+	glTranslatef(posX - totalWidth/2, posY - glutStrokeHeight(GLUT_STROKE_ROMAN)*(scaleFactor/4), 0);
 	glScalef(scaleFactor, scaleFactor, scaleFactor);
 	for (int i = 0; i < message.size(); i++) {
 		glutStrokeCharacter(GLUT_STROKE_ROMAN, message[i]);
@@ -412,14 +412,14 @@ void GameMainLoop::drawBackground() const {
 	//get which chunks are on screen
 	const float backgroundWidth = GAME_WIDTH / 10;
 	const float backgroundHeight = GAME_HEIGHT / 10;
-	int chunkLeft = floor((player->getX() - player->getZoomDist()) / backgroundWidth);
-	int chunkRight = floor((player->getX() + player->getZoomDist()) / backgroundWidth); //ceil would get the right edge
-	int chunkBottom = floor((player->getY() - player->getZoomDist()) / backgroundHeight);
-	int chunkTop = floor((player->getY() + player->getZoomDist()) / backgroundHeight);
+	int chunkLeft =   static_cast<int>(floor((player->getX() - player->getZoomDist()) / backgroundWidth));
+	int chunkRight =  static_cast<int>(floor((player->getX() + player->getZoomDist()) / backgroundWidth)); //ceil would get the right edge
+	int chunkBottom = static_cast<int>(floor((player->getY() - player->getZoomDist()) / backgroundHeight));
+	int chunkTop =    static_cast<int>(floor((player->getY() + player->getZoomDist()) / backgroundHeight));
 
 	for (int i = chunkLeft; i <= chunkRight; i++) {
 		for (int j = chunkBottom; j <= chunkTop; j++) {
-			backgroundImage->draw(i * backgroundWidth, j * backgroundHeight, backgroundWidth, backgroundHeight, 0, .5);
+			backgroundImage->draw(i * backgroundWidth, j * backgroundHeight, backgroundWidth, backgroundHeight, 0, .5f );
 		}
 	}
 
@@ -431,8 +431,8 @@ void GameMainLoop::drawBackground() const {
 	glBegin(GL_LINES);
 	glVertex2f(GAME_WIDTH/2 - 20, GAME_HEIGHT/2);
 	glVertex2f(GAME_WIDTH/2 + 20, GAME_HEIGHT/2);
-	glVertex2f(GAME_WIDTH/2, GAME_HEIGHT/2 - 20);
-	glVertex2f(GAME_WIDTH/2, GAME_HEIGHT/2 + 20);
+	glVertex2f(GAME_WIDTH/2,      GAME_HEIGHT/2 - 20);
+	glVertex2f(GAME_WIDTH/2,      GAME_HEIGHT/2 + 20);
 	glEnd();
 	//not bothering to abstract this out because it's just two lines
 }
@@ -449,52 +449,52 @@ void GameMainLoop::drawArrow(float screenCenterX, float screenCenterY, float scr
 	Rect* screen = new Rect(screenCenterX - screenZoom, screenCenterY - screenZoom, screenZoom*2, screenZoom*2);
 	Rect* object = new Rect(objectX, objectY, objectW, objectH);
 	float* triangleCoords = new float[6]; //3 (x,y) pairs
-	const float ts = .9; //triangle size
+	const float ts = .9f; //triangle size
 	if (!CollisionHandler::partiallyCollided(object, screen)) {
 		//is off screen
 		if (objectX < screenCenterX - screenZoom) {
 			if (objectY < screenCenterY - screenZoom) {
 				//bottom left
-				triangleCoords[0] = screenCenterX - screenZoom, triangleCoords[1] = screenCenterY - screenZoom;
+				triangleCoords[0] = screenCenterX - screenZoom,    triangleCoords[1] = screenCenterY - screenZoom;
 				triangleCoords[2] = screenCenterX - screenZoom*ts, triangleCoords[3] = screenCenterY - screenZoom;
-				triangleCoords[4] = screenCenterX - screenZoom, triangleCoords[5] = screenCenterY - screenZoom*ts;
+				triangleCoords[4] = screenCenterX - screenZoom,    triangleCoords[5] = screenCenterY - screenZoom*ts;
 			} else if (objectY > screenCenterY + screenZoom) {
 				//top left
-				triangleCoords[0] = screenCenterX - screenZoom, triangleCoords[1] = screenCenterY + screenZoom;
+				triangleCoords[0] = screenCenterX - screenZoom,    triangleCoords[1] = screenCenterY + screenZoom;
 				triangleCoords[2] = screenCenterX - screenZoom*ts, triangleCoords[3] = screenCenterY + screenZoom;
-				triangleCoords[4] = screenCenterX - screenZoom, triangleCoords[5] = screenCenterY + screenZoom*ts;
+				triangleCoords[4] = screenCenterX - screenZoom,    triangleCoords[5] = screenCenterY + screenZoom*ts;
 			} else {
 				//middle left
-				triangleCoords[0] = screenCenterX - screenZoom, triangleCoords[1] = objectY+objectH/2;
+				triangleCoords[0] = screenCenterX - screenZoom,    triangleCoords[1] = objectY+objectH/2;
 				triangleCoords[2] = screenCenterX - screenZoom*ts, triangleCoords[3] = objectY+objectH/2 - screenZoom*(1-ts);
 				triangleCoords[4] = screenCenterX - screenZoom*ts, triangleCoords[5] = objectY+objectH/2 + screenZoom*(1-ts);
 			}
 		} else if (objectX > screenCenterX + screenZoom) {
 			if (objectY < screenCenterY - screenZoom) {
 				//bottom right
-				triangleCoords[0] = screenCenterX + screenZoom, triangleCoords[1] = screenCenterY - screenZoom;
+				triangleCoords[0] = screenCenterX + screenZoom,    triangleCoords[1] = screenCenterY - screenZoom;
 				triangleCoords[2] = screenCenterX + screenZoom*ts, triangleCoords[3] = screenCenterY - screenZoom;
-				triangleCoords[4] = screenCenterX + screenZoom, triangleCoords[5] = screenCenterY - screenZoom*ts;
+				triangleCoords[4] = screenCenterX + screenZoom,    triangleCoords[5] = screenCenterY - screenZoom*ts;
 			} else if (objectY > screenCenterY + screenZoom) {
 				//top right
-				triangleCoords[0] = screenCenterX + screenZoom, triangleCoords[1] = screenCenterY + screenZoom;
+				triangleCoords[0] = screenCenterX + screenZoom,    triangleCoords[1] = screenCenterY + screenZoom;
 				triangleCoords[2] = screenCenterX + screenZoom*ts, triangleCoords[3] = screenCenterY + screenZoom;
-				triangleCoords[4] = screenCenterX + screenZoom, triangleCoords[5] = screenCenterY + screenZoom*ts;
+				triangleCoords[4] = screenCenterX + screenZoom,    triangleCoords[5] = screenCenterY + screenZoom*ts;
 			} else {
 				//middle right
-				triangleCoords[0] = screenCenterX + screenZoom, triangleCoords[1] = objectY+objectH/2;
+				triangleCoords[0] = screenCenterX + screenZoom,    triangleCoords[1] = objectY+objectH/2;
 				triangleCoords[2] = screenCenterX + screenZoom*ts, triangleCoords[3] = objectY+objectH/2 - screenZoom*(1-ts);
 				triangleCoords[4] = screenCenterX + screenZoom*ts, triangleCoords[5] = objectY+objectH/2 + screenZoom*(1-ts);
 			}
 		} else {
 			if (objectY < screenCenterY - screenZoom) {
 				//bottom
-				triangleCoords[0] = objectX+objectW/2, triangleCoords[1] = screenCenterY - screenZoom;
+				triangleCoords[0] = objectX+objectW/2,                     triangleCoords[1] = screenCenterY - screenZoom;
 				triangleCoords[2] = objectX+objectW/2 - screenZoom*(1-ts), triangleCoords[3] = screenCenterY - screenZoom*ts;
 				triangleCoords[4] = objectX+objectW/2 + screenZoom*(1-ts), triangleCoords[5] = screenCenterY - screenZoom*ts;
 			} else if (objectY > screenCenterY + screenZoom) {
 				//top
-				triangleCoords[0] = objectX+objectW/2, triangleCoords[1] = screenCenterY + screenZoom;
+				triangleCoords[0] = objectX+objectW/2,                     triangleCoords[1] = screenCenterY + screenZoom;
 				triangleCoords[2] = objectX+objectW/2 - screenZoom*(1-ts), triangleCoords[3] = screenCenterY + screenZoom*ts;
 				triangleCoords[4] = objectX+objectW/2 + screenZoom*(1-ts), triangleCoords[5] = screenCenterY + screenZoom*ts;
 			} else {
@@ -547,7 +547,7 @@ void GameMainLoop::drawMain() const {
 	//drawMessage("center", 1.0/16, GAME_WIDTH/2, GAME_HEIGHT/2);
 	//drawMessage("max", 1.0, GAME_WIDTH/2, GAME_HEIGHT/2);
 	drawMessage(alertMessage, 1.0/8, player->getX(), player->getY() - player->getZoomDist() + 10);
-	drawMessage("Wave: "+std::to_string(waveNumber), 1.0/12, player->getX() + player->getZoomDist() - 25, player->getY() + player->getZoomDist() - 10);
-	drawMessage("Score: "+std::to_string(currentScore), 1.0/12, player->getX() - player->getZoomDist() + 25, player->getY() + player->getZoomDist() - 10);
+	drawMessage("Wave: "+std::to_string(waveNumber), 1.0f/12, player->getX() + player->getZoomDist() - 25, player->getY() + player->getZoomDist() - 10);
+	drawMessage("Score: "+std::to_string(currentScore), 1.0f/12, player->getX() - player->getZoomDist() + 25, player->getY() + player->getZoomDist() - 10);
 }
 

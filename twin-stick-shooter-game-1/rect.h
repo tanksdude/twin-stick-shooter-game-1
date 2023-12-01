@@ -16,10 +16,10 @@ public:
 	Rect() : Rect(0, 0, 0, 0) {}
 	Rect(float x, float y, float w, float h);
 
-	float getX() const { return x; }
-	float getY() const { return y; }
-	float getW() const { return w; }
-	float getH() const { return h; }
+	float getX() const noexcept { return x; }
+	float getY() const noexcept { return y; }
+	float getW() const noexcept { return w; }
+	float getH() const noexcept { return h; }
 
 	void draw() const;
 	void draw(float r, float g, float b) const;

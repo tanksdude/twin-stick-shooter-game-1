@@ -1,8 +1,10 @@
 #include "player.h"
-#include <math.h>
+
 #include "constants.h"
-#include "texture-manager.h"
+#include <cmath>
 #include <iostream>
+
+#include "texture-manager.h"
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -47,9 +49,9 @@ Player::Player(float x, float y, float r, char teamID) : Circle(x,y,r) {
 	up = down = left = right = shooting = false;
 	targetingReticule = SimpleVector2D(0,0);
 	velocity = SimpleVector2D(0,0);
-	speed = PlayerUpgradable<float>(1, 10, 1.5, 2);
-	firingRate = PlayerUpgradable<float>(2, 10, 2, 2.5);
-	bulletDamage = PlayerUpgradable<float>(1, 10, 2, 5);
+	speed = PlayerUpgradable<float>(1, 10, 1.5f, 2.0f);
+	firingRate = PlayerUpgradable<float>(2, 10, 2.0f, 2.5f);
+	bulletDamage = PlayerUpgradable<float>(1, 10, 2.0f, 5.0f);
 	shootCooldown = 0;
 	maxShootCooldown = 50;
 	shielded = false;
@@ -92,7 +94,7 @@ Player::~Player() {
 }
 
 void Player::move() {
-	float xVel=0, yVel = 0;
+	float xVel = 0, yVel = 0;
 	if (up) {
 		yVel += speed.getValue();
 	}
@@ -121,7 +123,7 @@ Projectile* Player::shootHandle() {
 			SimpleVector2D bulletVelocity(targetingReticule);
 			bulletVelocity.setMagnitude(speed.getValue()*4);
 			shot = new Projectile(x, y, r/2, bulletVelocity, bulletDamage.getValue(), this->teamID);
-			shootCooldown = maxShootCooldown * 1/firingRate.getValue();
+			shootCooldown = maxShootCooldown * (1/firingRate.getValue());
 		}
 	} else {
 		shootCooldown--;
@@ -134,7 +136,7 @@ void Player::tick() {
 		shieldCooldown--;
 	}
 
-	if (thrusterSprite != nullptr) {
+	if (thrusterSprite != nullptr) [[likely]] {
 		thrusterSprite->frameAdvance();
 	}
 }
@@ -199,16 +201,16 @@ float Player::getPlayerAlpha() const {
 
 void Player::draw() const {
 	//thruster:
-	if (bodyTexture != nullptr) {
+	if (bodyTexture != nullptr) [[likely]] {
 		if ((up != down) || (left != right)) {
 			//float angle = velocity.getAngle();
 			float angle = targetingReticule.getAngle();
-			thrusterSprite->draw(x - r - r*cos(angle), y - r - r*sin(angle), 2*r, 2*r, angle+PI/2, 1);
+			thrusterSprite->draw(x - r - r*cos(angle), y - r - r*sin(angle), 2*r, 2*r, angle+(PI/2), 1);
 		}
 	}
 
 	//body:
-	if (bodyTexture == nullptr) {
+	if (bodyTexture == nullptr) [[unlikely]] {
 		Circle::draw(1, 0, 1);
 	} else {
 		float alpha = getPlayerAlpha();
@@ -216,19 +218,19 @@ void Player::draw() const {
 	}
 
 	//reticule:
-	if (reticuleTexture == nullptr) {
-		Circle::draw(x + targetingReticule.getXComp(), y + targetingReticule.getYComp(), r, .75, 0, .75);
+	if (reticuleTexture == nullptr) [[unlikely]] {
+		Circle::draw(x + targetingReticule.getXComp(), y + targetingReticule.getYComp(), r, .75f, 0, .75f);
 	} else {
 		reticuleTexture->draw(x + targetingReticule.getXComp() - r, y + targetingReticule.getYComp() - r, 2*r, 2*r, 0);
 	}
 
 	//shield:
 	if (shielded) {
-		const float size = r*1.5;
-		if (shieldTexture == nullptr) {
+		const float size = r*1.5f;
+		if (shieldTexture == nullptr) [[unlikely]] {
 			Circle::draw(x, y, size, 1, 0, 1, GL_LINE_LOOP);
 		} else {
-			shieldTexture->draw(x - size, y - size, 2*size, 2*size, 0, .5);
+			shieldTexture->draw(x - size, y - size, 2*size, 2*size, 0, .5f);
 		}
 	}
 }

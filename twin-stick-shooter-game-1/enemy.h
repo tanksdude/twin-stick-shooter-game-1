@@ -13,7 +13,7 @@ enum class EnemyTypes {
 	//Advanced,
 	//Turret,
 	//Guarded,
-	Mothership
+	Mothership,
 };
 
 class Enemy : public Circle {
@@ -46,7 +46,7 @@ public:
 	virtual ~Enemy();
 private:
 	Enemy();
-	Enemy(const Enemy&);
+	Enemy(const Enemy&) = delete;
 protected:
 	Enemy(float x, float y, float r, char teamID);
 };
@@ -55,6 +55,7 @@ class FodderEnemy : public Enemy {
 protected:
 	static float size; //const but I don't want to change header files to change size and speed
 	static float speed;
+
 public:
 	EnemyTypes getType() const override { return EnemyTypes::Fodder; }
 	int getScore() const override { return 1; }
@@ -68,7 +69,7 @@ public:
 
 	//FodderEnemy(const FodderEnemy&);
 private:
-	FodderEnemy();
+	FodderEnemy() = delete;
 };
 
 class BasicEnemy : public Enemy {
@@ -77,6 +78,7 @@ protected:
 	static float speed;
 
 	float maxAngleChange;
+
 public:
 	EnemyTypes getType() const override { return EnemyTypes::Basic; }
 	int getScore() const override { return 3; }
@@ -90,7 +92,7 @@ public:
 
 	//BasicEnemy(const BasicEnemy&);
 private:
-	BasicEnemy();
+	BasicEnemy() = delete;
 };
 
 class MothershipEnemy : public Enemy {
@@ -101,6 +103,7 @@ protected:
 
 	int shootCooldown;
 	int maxShootCooldown;
+
 public:
 	EnemyTypes getType() const override { return EnemyTypes::Mothership; }
 	int getScore() const override { return 10; }
@@ -114,5 +117,5 @@ public:
 
 	//MothershipEnemy(const MothershipEnemy&);
 private:
-	MothershipEnemy();
+	MothershipEnemy() = delete;
 };

@@ -1,4 +1,4 @@
-0.1.1 (obviously not here)
+0.1.1 (future, won't do)
 * ini file
 * proper powerup upgrading system
 

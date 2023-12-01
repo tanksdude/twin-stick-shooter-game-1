@@ -1,4 +1,5 @@
 #include "texture-manager.h"
+
 #include <iostream>
 
 std::unordered_map<std::string, Sprite*> TextureManager::sprites;
@@ -13,7 +14,7 @@ Sprite* TextureManager::getLoneSprite(std::string name) {
 }
 
 void TextureManager::addSprite(std::string name, Sprite* s) {
-	sprites.insert({name, s});
+	sprites.insert({ name, s });
 }
 
 SpriteHolder* TextureManager::getSprite(const char* name, int delayBetweenFrames, int loopMax) {

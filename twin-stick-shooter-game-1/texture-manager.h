@@ -1,7 +1,7 @@
 #pragma once
 #include "sprite.h"
-#include <vector>
 #include <string>
+#include <vector>
 #include <unordered_map>
 
 //holds all textures and sprites
@@ -18,6 +18,6 @@ public:
 	static SpriteHolder* getSprite(const char*, int delayBetweenFrames=1, int loopMax=-1);
 
 private:
-	TextureManager();
-	TextureManager(const TextureManager&) {}
+	TextureManager() = delete;
+	TextureManager(const TextureManager&) = delete;
 };

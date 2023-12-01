@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <unordered_map>
+
 #include "game-scene.h"
 #include "player.h"
 #include "enemy.h"
@@ -93,5 +94,5 @@ protected:
 	void drawArrow(float screenCenterX, float screenCenterY, float screenZoom, Rect*) const;
 
 private:
-	GameMainLoop(const GameMainLoop&) {}
+	GameMainLoop(const GameMainLoop&) = delete;
 };

@@ -1,16 +1,17 @@
 #pragma once
 class Powerup;
 
-#include "circle.h"
 #include <string>
 #include <vector>
+
+#include "circle.h"
 #include "sprite.h"
 
 enum class PowerupTypes {
 	Speed,
 	FiringRate,
 	Damage,
-	Shield
+	Shield,
 };
 
 class Powerup : public Circle {
@@ -43,49 +44,37 @@ protected:
 };
 
 class SpeedPowerup : public Powerup {
-protected:
-
 public:
 	virtual PowerupTypes getType() const override { return PowerupTypes::Speed; }
 	virtual int getSpeedIncrease() const override { return 1; }
 
 	SpeedPowerup(float x, float y);
 	SpeedPowerup(float x, float y, float r);
-	//SpeedPowerup(const SpeedPowerup&);
 };
 
 class FiringRatePowerup : public Powerup {
-protected:
-
 public:
 	virtual PowerupTypes getType() const override { return PowerupTypes::FiringRate; }
 	virtual int getFiringRateIncrease() const override { return 1; }
 
 	FiringRatePowerup(float x, float y);
 	FiringRatePowerup(float x, float y, float r);
-	//FiringRatePowerup(const FiringRatePowerup&);
 };
 
 class DamagePowerup : public Powerup {
-protected:
-
 public:
 	virtual PowerupTypes getType() const override { return PowerupTypes::Damage; }
 	virtual int getDamageIncrease() const override { return 1; }
 
 	DamagePowerup(float x, float y);
 	DamagePowerup(float x, float y, float r);
-	//DamagePowerup(const DamagePowerup&);
 };
 
 class ShieldPowerup : public Powerup {
-protected:
-
 public:
 	virtual PowerupTypes getType() const override { return PowerupTypes::Shield; }
 	virtual bool getShieldStatus() const override { return true; }
 
 	ShieldPowerup(float x, float y);
 	ShieldPowerup(float x, float y, float r);
-	//ShieldPowerup(const ShieldPowerup&);
 };

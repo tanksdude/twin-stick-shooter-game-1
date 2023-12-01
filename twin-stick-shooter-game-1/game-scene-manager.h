@@ -1,8 +1,8 @@
 #pragma once
 #include "game-scene.h"
-#include <vector>
-#include <utility>
 #include <string>
+#include <utility>
+#include <vector>
 
 typedef int Scene_ID;
 
@@ -62,6 +62,6 @@ public:
 	static void DrawScenes();
 
 private:
-	GameSceneManager() {}
-	GameSceneManager(const GameSceneManager&) {}
+	GameSceneManager() = delete;
+	GameSceneManager(const GameSceneManager&) = delete;
 };

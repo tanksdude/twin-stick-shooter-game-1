@@ -1,18 +1,18 @@
 #include <string>
 
-#include "game-scene-manager.h"
-#include "game-main-loop.h"
 #include "rng.h"
 
-//#include <GL/glew.h>
-//#include <GL/freeglut.h>
+#include "game-scene-manager.h"
+#include "game-main-loop.h"
+
+#include <GL/glew.h>
+#include <GL/freeglut.h>
+
+const std::string GameWindowName = "Twin-Stick Shooter Test Game v1.0";
 
 int main(int argc, char** argv) {
 	RNG::Initialize();
-	//TODO: very obviously not done
-	std::string name = "Twin-Stick Shooter Test Game v0.9"; //v1.0 once everything compiles
-	//TODO?
-	GameSceneManager::PreInitialize(&argc, argv, name, 60, 60, 600, 600);
+	GameSceneManager::PreInitialize(&argc, argv, GameWindowName, 60, 60, 600, 600);
 
 	// Set callback for drawing the scene
 	glutDisplayFunc(GameSceneManager::DrawScenes);

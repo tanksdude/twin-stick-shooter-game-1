@@ -1,9 +1,11 @@
 #include "projectile.h"
+
 #include "constants.h"
-#include <math.h>
+#include <cmath>
 //#include <limits>
-#include "texture-manager.h"
 #include <iostream>
+
+#include "texture-manager.h"
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -20,11 +22,12 @@ Projectile::Projectile(float x, float y, float r, SimpleVector2D velocity, float
 Projectile::Projectile(const Projectile& other) : Circle(other) {
 	this->velocity = other.velocity;
 	this->teamID = other.teamID;
+	this->damage = other.damage;
 	this->bodyTexture = (other.bodyTexture==nullptr ? nullptr : TextureManager::getSprite(other.bodyTexture->getName().c_str()));
 }
 
 Projectile::~Projectile() {
-	if (bodyTexture != nullptr) {
+	if (bodyTexture != nullptr) [[likely]] {
 		delete bodyTexture; //doesn't delete the actual sprite
 	}
 }
@@ -33,13 +36,13 @@ void Projectile::move() {
 	x += velocity.getXComp();
 	y += velocity.getYComp();
 
-	if (bodyTexture != nullptr) {
+	if (bodyTexture != nullptr) [[likely]] {
 		bodyTexture->frameAdvance(); //nowhere better to put this...
 	}
 }
 
 void Projectile::draw() const {
-	if (bodyTexture == nullptr) {
+	if (bodyTexture == nullptr) [[unlikely]] {
 		Circle::draw(1, 0, 1);
 	} else {
 		bodyTexture->draw(x - r, y - r, 2*r, 2*r, velocity.getAngle(), 1);

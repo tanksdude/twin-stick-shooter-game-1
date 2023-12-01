@@ -1,39 +1,41 @@
 #include "enemy.h"
+
 #include "constants.h"
-#include <math.h>
+#include <cmath>
 #include <stdexcept>
+
 #include "texture-manager.h"
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
 Enemy* Enemy::MakeEnemy(float x, float y, EnemyTypes type, char teamID) {
-	switch(type) {
+	switch (type) {
 		case EnemyTypes::Fodder:
 			return new FodderEnemy(x, y, teamID);
 		case EnemyTypes::Basic:
 			return new BasicEnemy(x, y, teamID);
 		case EnemyTypes::Mothership:
 			return new MothershipEnemy(x, y, teamID);
+		default:
+			throw std::domain_error("ERROR: Unknown enemy type!");
 	}
-	throw std::domain_error("ERROR: Unknown enemy type!");
-	return nullptr;
 }
 
 Enemy* Enemy::MakeEnemy(float x, float y, float r, EnemyTypes type, char teamID) {
-	switch(type) {
+	switch (type) {
 		case EnemyTypes::Fodder:
 			return new FodderEnemy(x, y, r, teamID);
 		case EnemyTypes::Basic:
 			return new BasicEnemy(x, y, r, teamID);
 		case EnemyTypes::Mothership:
 			return new MothershipEnemy(x, y, r, teamID);
+		default:
+			throw std::domain_error("ERROR: Unknown enemy type!");
 	}
-	throw std::domain_error("ERROR: Unknown enemy type!");
-	return nullptr;
 }
 
-Enemy::Enemy(float x, float y, float r, char teamID) : Circle(x,y,r) {
+Enemy::Enemy(float x, float y, float r, char teamID) : Circle(x, y, r) {
 	this->teamID = teamID;
 	velocity = SimpleVector2D(0, 0);
 	//cooldown = 0;
@@ -48,7 +50,7 @@ Enemy::~Enemy() {
 }
 
 void Enemy::draw() const {
-	if (bodyTexture == nullptr) {
+	if (bodyTexture == nullptr) [[unlikely]] {
 		Circle::draw(1, 0, 1);
 	} else {
 		bodyTexture->draw(x - r, y - r, 2*r, 2*r, getAngle(), 1);
@@ -56,11 +58,11 @@ void Enemy::draw() const {
 
 	//health:
 	if (health < initial_health) {
-		Rect::draw(x-r, y-r*1.5, 2*r, r*.5, 1, 1, 1, GL_LINE_LOOP);
+		Rect::draw(x-r, y-r*1.5f, 2*r, r*.5f, 1, 1, 1, GL_LINE_LOOP);
 		//forms a box of width 2r and height r/2 right below enemy
 
 		const float healthPercent = health / initial_health;
-		Rect::draw(x-r, y-r*1.5, 2*r*healthPercent, r*.5, 1, 1, 1, GL_POLYGON);
+		Rect::draw(x-r, y-r*1.5f, 2*r*healthPercent, r*.5f, 1, 1, 1, GL_POLYGON);
 	}
 }
 
@@ -75,15 +77,15 @@ bool Enemy::takeDamageHandle(float damage) {
 float FodderEnemy::size = 2.5;
 float FodderEnemy::speed = .125;
 
-FodderEnemy::FodderEnemy(float x, float y, char teamID) : FodderEnemy(x,y,FodderEnemy::size,teamID) {}
-FodderEnemy::FodderEnemy(float x, float y, float r, char teamID) : Enemy(x,y,r,teamID) {
+FodderEnemy::FodderEnemy(float x, float y, char teamID) : FodderEnemy(x, y, FodderEnemy::size, teamID) {}
+FodderEnemy::FodderEnemy(float x, float y, float r, char teamID) : Enemy(x, y, r, teamID) {
 	initial_health = health = 1;
 	defense = 0;
 	bodyTexture = TextureManager::getSprite("shieldbubble.png");
 }
 
 FodderEnemy::~FodderEnemy() {
-	if (bodyTexture != nullptr) {
+	if (bodyTexture != nullptr) [[likely]] {
 		delete bodyTexture;
 	}
 }
@@ -106,8 +108,8 @@ void FodderEnemy::move() {
 float BasicEnemy::size = 5;
 float BasicEnemy::speed = .25;
 
-BasicEnemy::BasicEnemy(float x, float y, char teamID) : BasicEnemy(x,y,BasicEnemy::size,teamID) {}
-BasicEnemy::BasicEnemy(float x, float y, float r, char teamID) : Enemy(x,y,r,teamID) {
+BasicEnemy::BasicEnemy(float x, float y, char teamID) : BasicEnemy(x, y, BasicEnemy::size, teamID) {}
+BasicEnemy::BasicEnemy(float x, float y, float r, char teamID) : Enemy(x, y, r, teamID) {
 	initial_health = health = 5;
 	defense = 0;
 	maxAngleChange = 2*PI / 400;
@@ -115,7 +117,7 @@ BasicEnemy::BasicEnemy(float x, float y, float r, char teamID) : Enemy(x,y,r,tea
 }
 
 BasicEnemy::~BasicEnemy() {
-	if (bodyTexture != nullptr) {
+	if (bodyTexture != nullptr) [[likely]] {
 		delete bodyTexture;
 	}
 }
@@ -123,7 +125,7 @@ BasicEnemy::~BasicEnemy() {
 Projectile* BasicEnemy::tick(const Player* p) {
 	SimpleVector2D distToPlayer = SimpleVector2D(p->getX() - x, p->getY() - y);
 	//SimpleVector2D newVelocity = velocity + distToPlayer;
-	if (velocity.getMagnitude() < .000000001) {
+	if (velocity.getMagnitude() < .000000001f) {
 		velocity = distToPlayer;
 	} else {
 		float theta = SimpleVector2D::angleBetween(distToPlayer, velocity);
@@ -154,8 +156,8 @@ void BasicEnemy::move() {
 float MothershipEnemy::size = 50;
 float MothershipEnemy::speed = .125;
 
-MothershipEnemy::MothershipEnemy(float x, float y, char teamID) : MothershipEnemy(x,y,MothershipEnemy::size,teamID) {}
-MothershipEnemy::MothershipEnemy(float x, float y, float r, char teamID) : Enemy(x,y,r,teamID) {
+MothershipEnemy::MothershipEnemy(float x, float y, char teamID) : MothershipEnemy(x, y, MothershipEnemy::size, teamID) {}
+MothershipEnemy::MothershipEnemy(float x, float y, float r, char teamID) : Enemy(x, y, r, teamID) {
 	initial_health = health = 20;
 	defense = 1;
 	shootCooldown = 0;
@@ -165,7 +167,7 @@ MothershipEnemy::MothershipEnemy(float x, float y, float r, char teamID) : Enemy
 }
 
 MothershipEnemy::~MothershipEnemy() {
-	if (bodyTexture != nullptr) {
+	if (bodyTexture != nullptr) [[likely]] {
 		delete bodyTexture;
 	}
 }

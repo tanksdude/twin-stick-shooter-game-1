@@ -1,4 +1,7 @@
 #include "game-scene-manager.h"
+
+#include <chrono>
+
 #include "texture-manager.h"
 
 #include <GL/glew.h>
@@ -61,8 +64,8 @@ void GameSceneManager::PreInitialize(int* argc, char** argv, std::string windowN
 }
 
 void GameSceneManager::windowToSceneCoordinates(float& x, float& y) {
-	x = 2*(float(x) / width - .5) * centerToEdge + xCenter;
-	y = 2*(float(height - y) / height - .5) * centerToEdge + yCenter;
+	x = 2*(float(x) / width - .5f) * centerToEdge + xCenter;
+	y = 2*(float(height - y) / height - .5f) * centerToEdge + yCenter;
 }
 
 void GameSceneManager::resizeWindow() {
@@ -102,8 +105,7 @@ void GameSceneManager::resizeWindow(int w, int h) {
 		winXmax = center + (appXmax - center) * scale;
 		winYmin = appYmin;
 		winYmax = appYmax;
-	}
-	else {
+	} else {
 		scale = ((appXmax - appXmin) / w) / ((appYmax - appYmin) / h);
 		center = (appYmax + appYmin) / 2;
 		winYmin = center - (center - appYmin) * scale;
@@ -209,11 +211,21 @@ void GameSceneManager::Initialize() {
 }
 
 void GameSceneManager::TickScenes(int UPS) {
+	auto start = std::chrono::steady_clock::now();
+
 	for (int i = 0; i < scenes.size(); i++) {
 		scenes[i].first->Tick(UPS);
 	}
 	DrawScenes();
-	glutTimerFunc(1000/UPS, GameSceneManager::TickScenes, UPS);
+
+	auto end = std::chrono::steady_clock::now();
+	auto timeTakenMS = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0f; //milliseconds
+	auto sleepTimeMS = ceil(1000.0f/UPS - timeTakenMS);
+	if (sleepTimeMS > 0) {
+		glutTimerFunc(static_cast<unsigned int>(sleepTimeMS), GameSceneManager::TickScenes, UPS);
+	} else {
+		glutTimerFunc(0, GameSceneManager::TickScenes, UPS);
+	}
 }
 
 void GameSceneManager::DrawScenes() {
