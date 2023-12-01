@@ -6,6 +6,8 @@ A game heavily inspired by [Super Stardust](https://en.wikipedia.org/wiki/Super_
 
 Code is pretty hacky, but at least the game is playable!
 
+![readme image](readme-image.jpg)
+
 # IMPORTANT NOTE
 
 Windows doesn't play nice with old OpenGL calls, so all the images being drawn are in reverse order, and also the alpha channel is interpreted incorrectly.
