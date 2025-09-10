@@ -55,7 +55,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\freeglut\include;$(SolutionDir)Dependencies\glew\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\freeglut\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies\stb</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -74,7 +74,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\freeglut\include;$(SolutionDir)Dependencies\glew\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\freeglut\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies\stb</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -95,20 +95,17 @@
     <ClCompile Include="game-scene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="enemy.cpp" />
-    <ClCompile Include="image_DXT.c" />
-    <ClCompile Include="image_helper.c" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="powerup.cpp" />
     <ClCompile Include="projectile.cpp" />
     <ClCompile Include="rect.cpp" />
     <ClCompile Include="rng.cpp" />
     <ClCompile Include="simple-vector-2d.cpp" />
-    <ClCompile Include="SOIL.c" />
     <ClCompile Include="sprite.cpp" />
-    <ClCompile Include="stb_image_aug.c" />
     <ClCompile Include="texture-manager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Dependencies\stb\stb_image.h" />
     <ClInclude Include="circle.h" />
     <ClInclude Include="collision-handler.h" />
     <ClInclude Include="constants.h" />
@@ -116,19 +113,13 @@
     <ClInclude Include="game-main-loop.h" />
     <ClInclude Include="game-scene-manager.h" />
     <ClInclude Include="game-scene.h" />
-    <ClInclude Include="image_DXT.h" />
-    <ClInclude Include="image_helper.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="powerup.h" />
     <ClInclude Include="projectile.h" />
     <ClInclude Include="rect.h" />
     <ClInclude Include="rng.h" />
     <ClInclude Include="simple-vector-2d.h" />
-    <ClInclude Include="SOIL.h" />
     <ClInclude Include="sprite.h" />
-    <ClInclude Include="stbi_DDS_aug.h" />
-    <ClInclude Include="stbi_DDS_aug_c.h" />
-    <ClInclude Include="stb_image_aug.h" />
     <ClInclude Include="texture-manager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

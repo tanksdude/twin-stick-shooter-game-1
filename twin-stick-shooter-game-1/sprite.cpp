@@ -3,74 +3,64 @@
 #include "constants.h"
 #include <iostream>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
+/* from ImGui: https://github.com/ocornut/imgui/wiki/Image-Loading-and-Displaying-Examples#example-for-opengl-users */
+static bool LoadTextureFromMemory(const void* data, size_t data_size, GLuint* out_texture, int* out_width, int* out_height) {
+	int image_width = 0;
+	int image_height = 0;
+	unsigned char* image_data = stbi_load_from_memory((const unsigned char*)data, (int)data_size, &image_width, &image_height, NULL, 4);
+	if (image_data == NULL)
+		return false;
+
+	GLuint image_texture;
+	glGenTextures(1, &image_texture);
+	glBindTexture(GL_TEXTURE_2D, image_texture);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
+	stbi_image_free(image_data);
+
+	*out_texture = image_texture;
+	*out_width = image_width;
+	*out_height = image_height;
+
+	return true;
+}
+static bool LoadTextureFromFile(const char* file_name, GLuint* out_texture, int* out_width, int* out_height) {
+	FILE* f = fopen(file_name, "rb");
+	if (f == NULL)
+		return false;
+	fseek(f, 0, SEEK_END);
+	size_t file_size = (size_t)ftell(f);
+	if (file_size == -1)
+		return false;
+	fseek(f, 0, SEEK_SET);
+	void* file_data = malloc(file_size);
+	fread(file_data, 1, file_size, f);
+	fclose(f);
+	bool ret = LoadTextureFromMemory(file_data, file_size, out_texture, out_width, out_height);
+	free(file_data);
+	return ret;
+}
+/* end ImGui */
+
 Sprite::Sprite(const char* filename, int horzCount, int vertCount) : Rect(0,0,1,1) {
 	this->horzCount = horzCount;
 	this->vertCount = vertCount;
 
-    std::cout << "Loading " << filename << std::endl;
-    
-    glClearColor (0.0, 0.0, 0.0, 0.0);
-    glShadeModel(GL_FLAT);
-    glEnable(GL_DEPTH_TEST);
-    
-    int wi, hi, c;
-    
-    unsigned char * test = SOIL_load_image(filename, &wi, &hi, &c, SOIL_LOAD_AUTO);
-    
-    texture_id = SOIL_load_OGL_texture (
-                                        filename,
-                                        SOIL_LOAD_AUTO,
-                                        SOIL_CREATE_NEW_ID,
-                                        SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB 
-                                        );
-    
-    if(0 == texture_id){
-        std::cout <<"SOIL loading error: " << SOIL_last_result() << std::endl;
-    }
-    
-    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &texwidth);
-    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &texheight);
-    
-    int width, height;
-    FILE *image;
-    int size, i = 0;
-    unsigned char *data;
-    
-    image =fopen(filename,"rb");  // open JPEG image file
-    if(!image){
-        printf("Unable to open image \n");
-    }
-    fseek(image,  0,  SEEK_END);
-    size = ftell(image);
-    fseek(image,  0,  SEEK_SET);
-    data = (unsigned char *)malloc(size);
-    fread(data, 1, size, image);
-    /* verify valid JPEG header */
-    if(data[i] == 0xFF && data[i + 1] == 0xD8 && data[i + 2] == 0xFF && data[i + 3] == 0xE0) {
-        i += 4;
-        /* Check for null terminated JFIF */
-        if(data[i + 2] == 'J' && data[i + 3] == 'F' && data[i + 4] == 'I' && data[i + 5] == 'F' && data[i + 6] == 0x00) {
-            while(i < size) {
-                i++;
-                if(data[i] == 0xFF){
-                    if(data[i+1] == 0xC0) {
-                        height = data[i + 5]*256 + data[i + 6];
-                        width = data[i + 7]*256 + data[i + 8];
-                        break;
-                    }
-                }
-            }
-        }
-    }
+	std::cout << "Loading " << filename << std::endl;
 
-    fclose(image);
-    
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glClearColor (0.0, 0.0, 0.0, 1.0);
+	glShadeModel(GL_FLAT);
+
+	LoadTextureFromFile(filename, &texture_id, &texwidth, &texheight);
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 }
 
 int Sprite::getFrameXIndex(int index) const {
