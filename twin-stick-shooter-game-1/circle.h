@@ -1,8 +1,5 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <GL/freeglut.h>
-
 class Circle {
 	friend class CollisionHandler;
 
@@ -25,5 +22,5 @@ public:
 
 	void draw() const;
 	void draw(float r, float g, float b) const;
-	static void draw(float x, float y, float radius, float red, float g, float b, GLenum method=GL_POLYGON);
+	static void draw(float x, float y, float radius, float red, float g, float b);
 };

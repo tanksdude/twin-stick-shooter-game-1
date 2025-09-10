@@ -401,6 +401,7 @@ void GameMainLoop::drawMessage(std::string message, float scaleFactor, float pos
 	//I don't know why, but TEXT_HEIGHT*scaleFactor isn't the height of the text; must divide by 4
 	glTranslatef(posX - totalWidth/2, posY - glutStrokeHeight(GLUT_STROKE_ROMAN)*(scaleFactor/4), 0);
 	glScalef(scaleFactor, scaleFactor, scaleFactor);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	for (int i = 0; i < message.size(); i++) {
 		glutStrokeCharacter(GLUT_STROKE_ROMAN, message[i]);
 	}
@@ -419,7 +420,7 @@ void GameMainLoop::drawBackground() const {
 
 	for (int i = chunkLeft; i <= chunkRight; i++) {
 		for (int j = chunkBottom; j <= chunkTop; j++) {
-			backgroundImage->draw(i * backgroundWidth, j * backgroundHeight, backgroundWidth, backgroundHeight, 0, .5f );
+			backgroundImage->draw(i * backgroundWidth, j * backgroundHeight, backgroundWidth, backgroundHeight, 0, .5f);
 		}
 	}
 

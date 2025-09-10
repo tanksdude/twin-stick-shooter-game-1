@@ -228,7 +228,7 @@ void Player::draw() const {
 	if (shielded) {
 		const float size = r*1.5f;
 		if (shieldTexture == nullptr) [[unlikely]] {
-			Circle::draw(x, y, size, 1, 0, 1, GL_LINE_LOOP);
+			Circle::draw(x, y, size, 1, 0, 1);
 		} else {
 			shieldTexture->draw(x - size, y - size, 2*size, 2*size, 0, .5f);
 		}

@@ -20,9 +20,9 @@ void Circle::draw(float red, float g, float b) const {
 	Circle::draw(x, y, this->r, red, g, b);
 }
 
-void Circle::draw(float x, float y, float radius, float red, float g, float b, GLenum method) {
+void Circle::draw(float x, float y, float radius, float red, float g, float b) {
 	glColor3f(red, g, b);
-	glBegin(method);
+	glBegin(GL_LINE_LOOP);
 	for (float i = 0; i < Circle::EDGE_COUNT; i++) {
 		glVertex2f(x + radius * std::cos((2*PI) * (i/Circle::EDGE_COUNT)), y + radius * std::sin((2*PI) * (i/Circle::EDGE_COUNT)));
 	}
