@@ -547,4 +547,11 @@ void GameMainLoop::drawMain() const {
 	drawMessage(alertMessage, 1.0f/8, player->getX(), player->getY() - player->getZoomDist() + 10);
 	drawMessage("Wave: "+std::to_string(waveNumber), 1.0f/12, player->getX() + player->getZoomDist() - 25, player->getY() + player->getZoomDist() - 10);
 	drawMessage("Score: "+std::to_string(currentScore), 1.0f/12, player->getX() - player->getZoomDist() + 25, player->getY() + player->getZoomDist() - 10);
+
+	std::string speed_value        = std::to_string(player->get_speedValue().first)        + "/" + std::to_string(player->get_speedValue().second);
+	std::string firingRate_value   = std::to_string(player->get_firingRateValue().first)   + "/" + std::to_string(player->get_firingRateValue().second);
+	std::string bulletDamage_value = std::to_string(player->get_bulletDamageValue().first) + "/" + std::to_string(player->get_bulletDamageValue().second);
+	drawMessage("speed: "+speed_value,         1.0f/24, player->getX() - player->getZoomDist() + 20, player->getY() - player->getZoomDist() +  5);
+	drawMessage("fire: "+firingRate_value,     1.0f/24, player->getX() - player->getZoomDist() + 20, player->getY() - player->getZoomDist() + 15);
+	drawMessage("damage: "+bulletDamage_value, 1.0f/24, player->getX() - player->getZoomDist() + 20, player->getY() - player->getZoomDist() + 25);
 }

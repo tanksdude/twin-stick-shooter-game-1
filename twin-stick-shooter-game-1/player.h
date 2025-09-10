@@ -5,6 +5,7 @@
 #include "projectile.h"
 #include "powerup.h"
 #include "sprite.h"
+#include <utility>
 
 class Player : public Circle {
 protected:
@@ -40,6 +41,8 @@ protected:
 		void increaseUpgrade(int);
 		PlayerUpgradable();
 		PlayerUpgradable(T value, int maxUpgrade, float multiplier1, float multiplierMax);
+		int get_currentUpgrade() const { return currentUpgrade; }
+		int get_maxUpgrade() const { return maxUpgrade; }
 	};
 
 	PlayerUpgradable<float> speed;
@@ -75,6 +78,9 @@ public:
 	void respawn(); //called when died; primarily resets shieldCooldown for invulnerability (unused)
 
 	float getZoomDist() const;
+	std::pair<int, int> get_speedValue() const { return { speed.get_currentUpgrade(), speed.get_maxUpgrade() }; }
+	std::pair<int, int> get_firingRateValue() const { return { firingRate.get_currentUpgrade(), firingRate.get_maxUpgrade() }; }
+	std::pair<int, int> get_bulletDamageValue() const { return { bulletDamage.get_currentUpgrade(), bulletDamage.get_maxUpgrade() }; }
 
 	~Player();
 };
