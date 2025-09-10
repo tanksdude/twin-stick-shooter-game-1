@@ -517,9 +517,9 @@ void GameMainLoop::drawMain() const {
 	GameSceneManager::setXCenter(player->getX());
 	GameSceneManager::setYCenter(player->getY());
 	GameSceneManager::setCenterDist(player->getZoomDist());
-	GameSceneManager::resizeWindow(); //TODO: necessary?
+	GameSceneManager::resizeWindow(); //this mainly updates the center position
 
-	//drawBackground();
+	drawBackground();
 
 	for (int i = 0; i < enemies.size(); i++) {
 		enemies[i]->draw();

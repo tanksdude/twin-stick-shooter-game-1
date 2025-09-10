@@ -126,7 +126,7 @@ void GameSceneManager::resizeWindow(int w, int h) {
 	glOrtho(winXmin, winXmax, winYmin, winYmax, -1, 1);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glutPostRedisplay();
+	//glutPostRedisplay(); //only do this if the window size was changed! (and only on Windows)
 }
 
 void GameSceneManager::keyDown(unsigned char key, int x, int y) {
