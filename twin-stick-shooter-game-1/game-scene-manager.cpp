@@ -220,7 +220,7 @@ void GameSceneManager::TickScenes(int UPS) {
 
 	auto end = std::chrono::steady_clock::now();
 	auto timeTakenMS = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0f; //milliseconds
-	auto sleepTimeMS = ceil(1000.0f/UPS - timeTakenMS);
+	auto sleepTimeMS = std::ceil(1000.0f/UPS - timeTakenMS);
 	if (sleepTimeMS > 0) {
 		glutTimerFunc(static_cast<unsigned int>(sleepTimeMS), GameSceneManager::TickScenes, UPS);
 	} else {

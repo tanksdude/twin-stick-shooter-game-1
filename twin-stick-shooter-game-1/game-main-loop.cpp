@@ -324,7 +324,7 @@ void GameMainLoop::pushWaveEnemies(int wave) {
 		for (int i = 0; i < wave*2; i++) {
 			pushEnemy(EnemyTypes::Fodder);
 		}
-		for (int i = 0; i < ceil(log2(wave)); i++) {
+		for (int i = 0; i < std::ceil(std::log2(wave)); i++) {
 			pushEnemy(EnemyTypes::Basic);
 		}
 	} else {
@@ -341,7 +341,7 @@ void GameMainLoop::pushEnemy(EnemyTypes type) {
 	Enemy* e = nullptr;
 	do {
 		if (e != nullptr) { delete e; }
-		SimpleVector2D offset((2*PI) * RNG::randFunc(), RNG::randFloatInRange(100, GAME_WIDTH/4), true);
+		SimpleVector2D offset((2*PI) * RNG::randFuncf(), RNG::randFloatInRange(100, GAME_WIDTH/4), true);
 		e = Enemy::MakeEnemy(player->getX() + offset.getXComp(), player->getY() + offset.getYComp(), type, 1);
 	} while (!validEnemyPosition(e));
 	enemies.push_back(e);
@@ -412,10 +412,10 @@ void GameMainLoop::drawBackground() const {
 	//get which chunks are on screen
 	const float backgroundWidth = GAME_WIDTH / 10;
 	const float backgroundHeight = GAME_HEIGHT / 10;
-	int chunkLeft =   static_cast<int>(floor((player->getX() - player->getZoomDist()) / backgroundWidth));
-	int chunkRight =  static_cast<int>(floor((player->getX() + player->getZoomDist()) / backgroundWidth)); //ceil would get the right edge
-	int chunkBottom = static_cast<int>(floor((player->getY() - player->getZoomDist()) / backgroundHeight));
-	int chunkTop =    static_cast<int>(floor((player->getY() + player->getZoomDist()) / backgroundHeight));
+	int chunkLeft =   static_cast<int>(std::floor((player->getX() - player->getZoomDist()) / backgroundWidth));
+	int chunkRight =  static_cast<int>(std::floor((player->getX() + player->getZoomDist()) / backgroundWidth)); //ceil would get the right edge
+	int chunkBottom = static_cast<int>(std::floor((player->getY() - player->getZoomDist()) / backgroundHeight));
+	int chunkTop =    static_cast<int>(std::floor((player->getY() + player->getZoomDist()) / backgroundHeight));
 
 	for (int i = chunkLeft; i <= chunkRight; i++) {
 		for (int j = chunkBottom; j <= chunkTop; j++) {
@@ -448,55 +448,55 @@ void GameMainLoop::drawArrow(float screenCenterX, float screenCenterY, float scr
 void GameMainLoop::drawArrow(float screenCenterX, float screenCenterY, float screenZoom, float objectX, float objectY, float objectW, float objectH) const {
 	Rect* screen = new Rect(screenCenterX - screenZoom, screenCenterY - screenZoom, screenZoom*2, screenZoom*2);
 	Rect* object = new Rect(objectX, objectY, objectW, objectH);
-	float* triangleCoords = new float[6]; //3 (x,y) pairs
+	float triangleCoords[6]; //3 (x,y) pairs
 	const float ts = .9f; //triangle size
 	if (!CollisionHandler::partiallyCollided(object, screen)) {
 		//is off screen
 		if (objectX < screenCenterX - screenZoom) {
 			if (objectY < screenCenterY - screenZoom) {
 				//bottom left
-				triangleCoords[0] = screenCenterX - screenZoom,    triangleCoords[1] = screenCenterY - screenZoom;
-				triangleCoords[2] = screenCenterX - screenZoom*ts, triangleCoords[3] = screenCenterY - screenZoom;
-				triangleCoords[4] = screenCenterX - screenZoom,    triangleCoords[5] = screenCenterY - screenZoom*ts;
+				triangleCoords[0] = screenCenterX - screenZoom;    triangleCoords[1] = screenCenterY - screenZoom;
+				triangleCoords[2] = screenCenterX - screenZoom*ts; triangleCoords[3] = screenCenterY - screenZoom;
+				triangleCoords[4] = screenCenterX - screenZoom;    triangleCoords[5] = screenCenterY - screenZoom*ts;
 			} else if (objectY > screenCenterY + screenZoom) {
 				//top left
-				triangleCoords[0] = screenCenterX - screenZoom,    triangleCoords[1] = screenCenterY + screenZoom;
-				triangleCoords[2] = screenCenterX - screenZoom*ts, triangleCoords[3] = screenCenterY + screenZoom;
-				triangleCoords[4] = screenCenterX - screenZoom,    triangleCoords[5] = screenCenterY + screenZoom*ts;
+				triangleCoords[0] = screenCenterX - screenZoom;    triangleCoords[1] = screenCenterY + screenZoom;
+				triangleCoords[2] = screenCenterX - screenZoom*ts; triangleCoords[3] = screenCenterY + screenZoom;
+				triangleCoords[4] = screenCenterX - screenZoom;    triangleCoords[5] = screenCenterY + screenZoom*ts;
 			} else {
 				//middle left
-				triangleCoords[0] = screenCenterX - screenZoom,    triangleCoords[1] = objectY+objectH/2;
-				triangleCoords[2] = screenCenterX - screenZoom*ts, triangleCoords[3] = objectY+objectH/2 - screenZoom*(1-ts);
-				triangleCoords[4] = screenCenterX - screenZoom*ts, triangleCoords[5] = objectY+objectH/2 + screenZoom*(1-ts);
+				triangleCoords[0] = screenCenterX - screenZoom;    triangleCoords[1] = objectY+objectH/2;
+				triangleCoords[2] = screenCenterX - screenZoom*ts; triangleCoords[3] = objectY+objectH/2 - screenZoom*(1-ts);
+				triangleCoords[4] = screenCenterX - screenZoom*ts; triangleCoords[5] = objectY+objectH/2 + screenZoom*(1-ts);
 			}
 		} else if (objectX > screenCenterX + screenZoom) {
 			if (objectY < screenCenterY - screenZoom) {
 				//bottom right
-				triangleCoords[0] = screenCenterX + screenZoom,    triangleCoords[1] = screenCenterY - screenZoom;
-				triangleCoords[2] = screenCenterX + screenZoom*ts, triangleCoords[3] = screenCenterY - screenZoom;
-				triangleCoords[4] = screenCenterX + screenZoom,    triangleCoords[5] = screenCenterY - screenZoom*ts;
+				triangleCoords[0] = screenCenterX + screenZoom;    triangleCoords[1] = screenCenterY - screenZoom;
+				triangleCoords[2] = screenCenterX + screenZoom*ts; triangleCoords[3] = screenCenterY - screenZoom;
+				triangleCoords[4] = screenCenterX + screenZoom;    triangleCoords[5] = screenCenterY - screenZoom*ts;
 			} else if (objectY > screenCenterY + screenZoom) {
 				//top right
-				triangleCoords[0] = screenCenterX + screenZoom,    triangleCoords[1] = screenCenterY + screenZoom;
-				triangleCoords[2] = screenCenterX + screenZoom*ts, triangleCoords[3] = screenCenterY + screenZoom;
-				triangleCoords[4] = screenCenterX + screenZoom,    triangleCoords[5] = screenCenterY + screenZoom*ts;
+				triangleCoords[0] = screenCenterX + screenZoom;    triangleCoords[1] = screenCenterY + screenZoom;
+				triangleCoords[2] = screenCenterX + screenZoom*ts; triangleCoords[3] = screenCenterY + screenZoom;
+				triangleCoords[4] = screenCenterX + screenZoom;    triangleCoords[5] = screenCenterY + screenZoom*ts;
 			} else {
 				//middle right
-				triangleCoords[0] = screenCenterX + screenZoom,    triangleCoords[1] = objectY+objectH/2;
-				triangleCoords[2] = screenCenterX + screenZoom*ts, triangleCoords[3] = objectY+objectH/2 - screenZoom*(1-ts);
-				triangleCoords[4] = screenCenterX + screenZoom*ts, triangleCoords[5] = objectY+objectH/2 + screenZoom*(1-ts);
+				triangleCoords[0] = screenCenterX + screenZoom;    triangleCoords[1] = objectY+objectH/2;
+				triangleCoords[2] = screenCenterX + screenZoom*ts; triangleCoords[3] = objectY+objectH/2 - screenZoom*(1-ts);
+				triangleCoords[4] = screenCenterX + screenZoom*ts; triangleCoords[5] = objectY+objectH/2 + screenZoom*(1-ts);
 			}
 		} else {
 			if (objectY < screenCenterY - screenZoom) {
 				//bottom
-				triangleCoords[0] = objectX+objectW/2,                     triangleCoords[1] = screenCenterY - screenZoom;
-				triangleCoords[2] = objectX+objectW/2 - screenZoom*(1-ts), triangleCoords[3] = screenCenterY - screenZoom*ts;
-				triangleCoords[4] = objectX+objectW/2 + screenZoom*(1-ts), triangleCoords[5] = screenCenterY - screenZoom*ts;
+				triangleCoords[0] = objectX+objectW/2;                     triangleCoords[1] = screenCenterY - screenZoom;
+				triangleCoords[2] = objectX+objectW/2 - screenZoom*(1-ts); triangleCoords[3] = screenCenterY - screenZoom*ts;
+				triangleCoords[4] = objectX+objectW/2 + screenZoom*(1-ts); triangleCoords[5] = screenCenterY - screenZoom*ts;
 			} else if (objectY > screenCenterY + screenZoom) {
 				//top
-				triangleCoords[0] = objectX+objectW/2,                     triangleCoords[1] = screenCenterY + screenZoom;
-				triangleCoords[2] = objectX+objectW/2 - screenZoom*(1-ts), triangleCoords[3] = screenCenterY + screenZoom*ts;
-				triangleCoords[4] = objectX+objectW/2 + screenZoom*(1-ts), triangleCoords[5] = screenCenterY + screenZoom*ts;
+				triangleCoords[0] = objectX+objectW/2;                     triangleCoords[1] = screenCenterY + screenZoom;
+				triangleCoords[2] = objectX+objectW/2 - screenZoom*(1-ts); triangleCoords[3] = screenCenterY + screenZoom*ts;
+				triangleCoords[4] = objectX+objectW/2 + screenZoom*(1-ts); triangleCoords[5] = screenCenterY + screenZoom*ts;
 			} else {
 				//center... can't happen
 			}
@@ -511,8 +511,6 @@ void GameMainLoop::drawArrow(float screenCenterX, float screenCenterY, float scr
 	}
 	delete screen;
 	delete object;
-
-	delete[] triangleCoords;
 }
 
 void GameMainLoop::drawMain() const {
@@ -544,10 +542,9 @@ void GameMainLoop::drawMain() const {
 
 	player->draw();
 
-	//drawMessage("center", 1.0/16, GAME_WIDTH/2, GAME_HEIGHT/2);
-	//drawMessage("max", 1.0, GAME_WIDTH/2, GAME_HEIGHT/2);
-	drawMessage(alertMessage, 1.0/8, player->getX(), player->getY() - player->getZoomDist() + 10);
+	//drawMessage("center", 1.0f/16, GAME_WIDTH/2, GAME_HEIGHT/2);
+	//drawMessage("max", 1.0f, GAME_WIDTH/2, GAME_HEIGHT/2);
+	drawMessage(alertMessage, 1.0f/8, player->getX(), player->getY() - player->getZoomDist() + 10);
 	drawMessage("Wave: "+std::to_string(waveNumber), 1.0f/12, player->getX() + player->getZoomDist() - 25, player->getY() + player->getZoomDist() - 10);
 	drawMessage("Score: "+std::to_string(currentScore), 1.0f/12, player->getX() - player->getZoomDist() + 25, player->getY() + player->getZoomDist() - 10);
 }
-

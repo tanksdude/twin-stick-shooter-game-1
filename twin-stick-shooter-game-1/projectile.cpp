@@ -1,7 +1,5 @@
 #include "projectile.h"
 
-#include "constants.h"
-#include <cmath>
 //#include <limits>
 #include <iostream>
 

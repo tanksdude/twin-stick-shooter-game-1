@@ -123,7 +123,7 @@ Projectile* Player::shootHandle() {
 			SimpleVector2D bulletVelocity(targetingReticule);
 			bulletVelocity.setMagnitude(speed.getValue()*4);
 			shot = new Projectile(x, y, r/2, bulletVelocity, bulletDamage.getValue(), this->teamID);
-			shootCooldown = maxShootCooldown * (1/firingRate.getValue());
+			shootCooldown = maxShootCooldown / firingRate.getValue();
 		}
 	} else {
 		shootCooldown--;
@@ -205,7 +205,7 @@ void Player::draw() const {
 		if ((up != down) || (left != right)) {
 			//float angle = velocity.getAngle();
 			float angle = targetingReticule.getAngle();
-			thrusterSprite->draw(x - r - r*cos(angle), y - r - r*sin(angle), 2*r, 2*r, angle+(PI/2), 1);
+			thrusterSprite->draw(x - r - r*std::cos(angle), y - r - r*std::sin(angle), 2*r, 2*r, angle+(PI/2), 1);
 		}
 	}
 

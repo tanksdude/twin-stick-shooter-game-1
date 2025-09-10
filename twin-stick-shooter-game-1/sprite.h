@@ -23,7 +23,7 @@ public:
 	Sprite(const char* filename) : Sprite(filename, 1, 1) {}
 	Sprite(const char* filename, int horzCount, int vertCount);
 
-	void draw(float x, float y, float w, float h, float radians=0, float alpha=1, float z=0) const;
+	//void draw(float x, float y, float w, float h, float radians=0, float alpha=1, float z=0) const;
 	void draw(float x, float y, float w, float h, float radians, float alpha, int frameNum, float z=0) const;
 private:
 	Sprite();
@@ -45,7 +45,7 @@ public:
 	std::string getName() const;
 	bool isDone() const;
 	void frameAdvance();
-	void getTotalFrames() const;
+	//void getTotalFrames() const;
 
 	SpriteHolder(const char* name, int delayBetweenFrames=1, int loopMax=-1);
 	void draw(float x, float y, float w, float h, float radians=0, float alpha=1, float z=0) const;

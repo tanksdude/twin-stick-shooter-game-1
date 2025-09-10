@@ -87,29 +87,29 @@ void Sprite::draw(float x, float y, float w, float h, float radians, float alpha
 	//rotate
 	glPushMatrix();
 	glTranslatef(x + w/2, y + h/2, z);
-	glRotatef(radians * 180/PI, 0, 0, 1); //rotate angle is in degrees for some reason
+	glRotatef(radians * (180/PI), 0, 0, 1); //rotate angle is in degrees for some reason
 	glTranslatef(-(x + w/2), -(y + h/2), -z);
 
-    glBindTexture( GL_TEXTURE_2D, texture_id );
-    glEnable(GL_TEXTURE_2D);
+	glBindTexture( GL_TEXTURE_2D, texture_id );
+	glEnable(GL_TEXTURE_2D);
 
-    glBegin(GL_QUADS);
-    glColor4f(1, 1, 1, alpha);
-    glTexCoord2f(float(frameX) / float(horzCount), float(frameY) / float(vertCount));
-    glVertex3f(x, y + h, z);
-    
-    glTexCoord2f(float(frameX) / float(horzCount), float(frameY + 1) / float(vertCount));
-    glVertex3f(x, y, z);
-    
-    glTexCoord2f(float(frameX + 1) / float(horzCount), float(frameY + 1) / float(vertCount));
-    glVertex3f(x+w, y, z);
-    
-    glTexCoord2f(float(frameX + 1) / float(horzCount), float(frameY) / float(vertCount));
-    glVertex3f(x+w, y + h, z);
-    
-    glEnd();
+	glBegin(GL_QUADS);
+	glColor4f(1, 1, 1, alpha);
+	glTexCoord2f(float(frameX) / float(horzCount), float(frameY) / float(vertCount));
+	glVertex3f(x, y + h, z);
 
-    glDisable(GL_TEXTURE_2D);
+	glTexCoord2f(float(frameX) / float(horzCount), float(frameY + 1) / float(vertCount));
+	glVertex3f(x, y, z);
+
+	glTexCoord2f(float(frameX + 1) / float(horzCount), float(frameY + 1) / float(vertCount));
+	glVertex3f(x+w, y, z);
+
+	glTexCoord2f(float(frameX + 1) / float(horzCount), float(frameY) / float(vertCount));
+	glVertex3f(x+w, y + h, z);
+
+	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
 
 	//finish rotating
 	glPopMatrix();

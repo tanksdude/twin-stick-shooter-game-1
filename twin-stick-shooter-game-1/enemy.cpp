@@ -129,7 +129,7 @@ Projectile* BasicEnemy::tick(const Player* p) {
 		velocity = distToPlayer;
 	} else {
 		float theta = SimpleVector2D::angleBetween(distToPlayer, velocity);
-		if (abs(theta) <= maxAngleChange) {
+		if (std::abs(theta) <= maxAngleChange) {
 			//small angle adjustment needed
 			velocity.setAngle(distToPlayer.getAngle());
 		} else {
@@ -183,7 +183,7 @@ Projectile* MothershipEnemy::tick(const Player* p) {
 	} else if (shootCooldown <= 0) {
 		if (canShoot) {
 			SimpleVector2D bulletVelocity = SimpleVector2D(distToPlayer.getAngle(), speed*2, true);
-			bullet = new Projectile(x + r*cos(distToPlayer.getAngle()), y + r*sin(distToPlayer.getAngle()), 10, bulletVelocity, 1, this->teamID);
+			bullet = new Projectile(x + r*std::cos(distToPlayer.getAngle()), y + r*std::sin(distToPlayer.getAngle()), 10, bulletVelocity, 1, this->teamID);
 			shootCooldown = maxShootCooldown;
 		}
 	}

@@ -1,7 +1,5 @@
 #include "powerup.h"
 
-#include "constants.h"
-#include <cmath>
 #include <stdexcept>
 #include <iostream>
 

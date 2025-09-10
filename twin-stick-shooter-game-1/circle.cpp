@@ -24,7 +24,7 @@ void Circle::draw(float x, float y, float radius, float red, float g, float b, G
 	glColor3f(red, g, b);
 	glBegin(method);
 	for (float i = 0; i < Circle::EDGE_COUNT; i++) {
-		glVertex2f(x + radius * cos((2*PI) * (i/Circle::EDGE_COUNT)), y + radius * sin((2*PI) * (i/Circle::EDGE_COUNT)));
+		glVertex2f(x + radius * std::cos((2*PI) * (i/Circle::EDGE_COUNT)), y + radius * std::sin((2*PI) * (i/Circle::EDGE_COUNT)));
 	}
 	glEnd();
 }
