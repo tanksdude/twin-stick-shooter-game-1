@@ -1,13 +1,8 @@
-0.1.1 (future, won't do)
-* ini file
-* proper powerup upgrading system
+2.0
+* cross-platform
+* fixed the horrible performance and input lag (was mistakenly forcing a wait+redraw every frame)
 
-0.1.0
+1.0
 * initial stuff: basic movement/controls, basic enemies, basic score and upgrades, basic background
-
-future notes:
-* menu
-* more enemies
-* long-term hope: implement the laser (the one from Super Stardust)
 
 GitHub: https://github.com/tanksdude/twin-stick-shooter-game-1

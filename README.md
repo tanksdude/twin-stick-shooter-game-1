@@ -6,27 +6,28 @@ A game heavily inspired by [Super Stardust](https://en.wikipedia.org/wiki/Super_
 
 Code is pretty hacky, but at least the game is playable!
 
-![readme image](readme-image.jpg)
+![readme image](readme-image.png)
 
-# IMPORTANT NOTE
+## Requirements
 
-Windows doesn't play nice with old OpenGL calls, so all the images being drawn are in reverse order, and also the alpha channel is interpreted incorrectly.
-
-I didn't find a solution, so you'll just have to deal with it. This means the background isn't drawn, which is kind of a shame.
-
-But, the source code is here, so you can manually reverse the draw order if you want!... Though alpha still won't be interpreted correctly.
-
-The game also runs very slowly with ~1s of input delay, and I don't know what I'm doing wrong, because the same code has run just fine at other times. I'll blame Windows for being Windows.
-
-## Getting Started
-
-### Prerequisites
-
-* If compiling from source, you'll want Visual Studio
 * 2GHz+ CPU is probably enough
 * ~100MB RAM
-* **Windows-only** (but the source code is right here so try some stuff if you want to)
-    * 32-bit only because Windows sucks, but don't fret, since 64-bit Windows can run 32-bit programs just fine
+* Windows: 64-bit
+
+Pre-built binaries are [provided](https://github.com/tanksdude/twin-stick-shooter-game-1/releases) for Windows. Linux must compile from source.
+
+### Compiling from source
+
+Windows: just get Visual Studio and compile
+
+Linux:
+
+1. Prerequisites: a compiler, CMake, freeglut, GLEW: `sudo apt install build-essential cmake freeglut3-dev libglew-dev`
+1. `mkdir build && cd build`
+1. `cmake .. -DCMAKE_BUILD_TYPE=Release`
+1. `make -j$(nproc)`
+1. TODO: also copy `images/` to the build dir, *otherwise you'll only get white squares*
+1. `./twin-stick-shooter-game-1`
 
 ## License
 
@@ -36,10 +37,11 @@ GNU General Public License v3.0
 
 ## Acknowledgments
 
-* The [Super Stardust](https://en.wikipedia.org/wiki/Super_Stardust_HD) series
+* The [Super Stardust](https://en.wikipedia.org/wiki/Super_Stardust_HD) series (*very* highly recommended!)
 * [PowerTanks Battle](https://github.com/tanksdude/tanks-game) (made by me)
 * All the twin-stick shooters I've played in the past, both good and bad (but mostly the good ones)
-* StackOverflow
+
+![readme image 2](readme-image-2.png)
 
 ## Good twin-stick shooters
 

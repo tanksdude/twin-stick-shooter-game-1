@@ -8,7 +8,7 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
-const std::string GameWindowName = "Twin-Stick Shooter Test Game v1.0 DEV";
+const std::string GameWindowName = "Twin-Stick Shooter Test Game v2.0";
 
 int main(int argc, char** argv) {
 	RNG::Initialize();
