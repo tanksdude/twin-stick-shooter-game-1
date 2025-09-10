@@ -55,12 +55,7 @@ Sprite::Sprite(const char* filename, int horzCount, int vertCount) : Rect(0,0,1,
 
 	std::cout << "Loading " << filename << std::endl;
 
-	glClearColor (0.0, 0.0, 0.0, 1.0);
-	glShadeModel(GL_FLAT);
-
 	LoadTextureFromFile(filename, &texture_id, &texwidth, &texheight);
-
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 }
 
 int Sprite::getFrameXIndex(int index) const {

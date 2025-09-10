@@ -12,7 +12,7 @@ const std::string GameWindowName = "Twin-Stick Shooter Test Game v1.0 DEV";
 
 int main(int argc, char** argv) {
 	RNG::Initialize();
-	GameSceneManager::PreInitialize(&argc, argv, GameWindowName, 60, 60, 600, 600);
+	GameSceneManager::PreInitialize(&argc, argv, GameWindowName, 120, 60, 600, 600);
 
 	// Set callback for drawing the scene
 	glutDisplayFunc(GameSceneManager::DrawScenes);

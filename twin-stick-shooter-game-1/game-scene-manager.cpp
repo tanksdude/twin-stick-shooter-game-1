@@ -1,6 +1,8 @@
 #include "game-scene-manager.h"
 
+#include <cmath>
 #include <chrono>
+#include <stdexcept>
 
 #include "texture-manager.h"
 
@@ -21,15 +23,14 @@ int GameSceneManager::nextSceneID = 0;
 void GameSceneManager::PreInitialize(int* argc, char** argv, std::string windowName, int startX, int startY, int sizeX, int sizeY) {
 	//initialize glut
 	glutInit(argc, argv);
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_DEPTH);
+	glutInitDisplayMode(GLUT_SINGLE);
 
 	// Setup window position, size, and title
-	glutInitWindowPosition(0, 0);
+	glutInitWindowPosition(startX, startY);
 	glutCreateWindow(windowName.c_str());
 	glutReshapeWindow(sizeX, sizeY);
 
 	// Setup some OpenGL options
-	//glEnable(GL_DEPTH_TEST);
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_POINT_SMOOTH);
 	glEnable(GL_LINE_SMOOTH);
@@ -38,15 +39,20 @@ void GameSceneManager::PreInitialize(int* argc, char** argv, std::string windowN
 	glPointSize(4);
 	glLineWidth(2);
 
+	glShadeModel(GL_FLAT);
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
 	//initialize glew
 	glewExperimental = GL_TRUE;
 	GLenum res = glewInit();
 	if (res != GLEW_OK) {
 		fprintf(stderr, "Error: '%s'\n", glewGetErrorString(res));
-		throw "glew failed";
+		throw std::runtime_error("glew failed");
 	}
-
-	//set the callbacks later right after this
 
 	//couldn't find a better place for this
 	TextureManager::addSprite("destroyer.png", new Sprite("images/destroyer.png"));
@@ -230,8 +236,7 @@ void GameSceneManager::TickScenes(int UPS) {
 
 void GameSceneManager::DrawScenes() {
 	//clear (mostly unnecessary, I think)
-	glClearColor(0.0, 0.0, 0.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT);
 
 	// Set up the transformations stack
 	glMatrixMode(GL_MODELVIEW);
